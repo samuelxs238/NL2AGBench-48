@@ -59,6 +59,8 @@ Each model was given 54 reference examples pairing natural-language problems wit
 
 Improvements were most pronounced on syntax-related failures, suggesting a meaningful share of translation errors stem from unfamiliarity with AlphaGeometry's DSL rather than a lack of geometric understanding — especially for open-source models. A substantial gap to the strongest closed-source models nonetheless remained.
 
+![Few-shot and Zero-shot Performance Comparison](model_benchmark_2.png)
+
 ### Human-Guided Hints
 
 A two-stage correction framework was applied after the initial translation attempt:
