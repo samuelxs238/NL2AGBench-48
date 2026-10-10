@@ -1,6 +1,6 @@
 # NL2AGBench: Benchmarking LLM Auto-Formalization for AlphaGeometry
 
-![Translation gap between natural-language geometry problems and AlphaGeometry's formal DSL](README/graphic_translation_difficulty.png)
+![Translation gap between natural-language geometry problems and AlphaGeometry's formal DSL](readme-imgs/graphic_translation_difficulty.png)
 
 *Figure 1: The translation gap between natural-language geometry problems and AlphaGeometry's formal DSL. While AlphaGeometry has demonstrated strong theorem-proving capabilities, the manual formalization step remains a major barrier to usability and large-scale deployment.*
 
@@ -12,7 +12,7 @@ NL2AGBench is built from geometry problems originally formalized for AlphaGeomet
 - **Selection**: 48 representative problems were selected for translation diversity (circles, cyclic quadrilaterals, angle bisectors, orthocenters, circumcenters, midpoints, reflections, perpendicular constructions) and execution efficiency (excluding problems with excessive AlphaGeometry runtime).
 - **Format**: Every problem pairs a natural-language statement with a verified, executable AlphaGeometry translation.
 
-![Sample NL2AGBench problems](README/images_benchmark_samples.png)
+![Sample NL2AGBench problems](readme-imgs/images_benchmark_samples.png)
 
 *Figure 2: Sample NL2AGBench problems spanning a range of geometric concepts, selected for both diversity and runtime efficiency.*
 
@@ -28,8 +28,6 @@ We evaluate **10 state-of-the-art LLMs** (closed- and open-source, spanning mult
 
 ### Table 1. Zero-Shot Model Performance
 
-Success counts and rates are shown with **95% Wilson confidence intervals**.
-
 <table>
   <tr>
     <th>Closed-source models</th>
@@ -37,27 +35,29 @@ Success counts and rates are shown with **95% Wilson confidence intervals**.
   </tr>
   <tr>
     <td valign="top">
-    <table>
-      <tr><th>Model</th><th>Zero-shot success</th><th>95% Wilson CI</th></tr>
-      <tr><td>GPT-5.4</td><td>36/48 (75.0%)</td><td>[61.2%, 85.1%]</td></tr>
-      <tr><td>Gemini 3.1 Pro</td><td>30/48 (62.5%)</td><td>[48.4%, 74.8%]</td></tr>
-      <tr><td>Grok 4.3</td><td>25/48 (52.1%)</td><td>[38.3%, 65.5%]</td></tr>
-      <tr><td>Claude Sonnet 4.6</td><td>18/48 (37.5%)</td><td>[25.2%, 51.6%]</td></tr>
-      <tr><td>GPT-4o mini</td><td>2/48 (4.2%)</td><td>[1.2%, 14.0%]</td></tr>
-    </table>
+      <table>
+        <tr><th>Model</th><th>Success rate</th></tr>
+        <tr><td>GPT-5.4</td><td align="right">75.0%</td></tr>
+        <tr><td>Gemini 3.1 Pro</td><td align="right">62.5%</td></tr>
+        <tr><td>Grok 4.3</td><td align="right">52.1%</td></tr>
+        <tr><td>Claude Sonnet 4.6</td><td align="right">37.5%</td></tr>
+        <tr><td>GPT-4o mini</td><td align="right">4.2%</td></tr>
+      </table>
     </td>
     <td valign="top">
-    <table>
-      <tr><th>Model</th><th>Zero-shot success</th><th>95% Wilson CI</th></tr>
-      <tr><td>Qwen3:235B</td><td>6/48 (12.5%)</td><td>[5.9%, 24.7%]</td></tr>
-      <tr><td>Llama3.1:70B</td><td>0/48 (0.0%)</td><td>[0.0%, 7.4%]</td></tr>
-      <tr><td>Llama3.2:3B</td><td>0/48 (0.0%)</td><td>[0.0%, 7.4%]</td></tr>
-      <tr><td>Mistral:7B</td><td>0/48 (0.0%)</td><td>[0.0%, 7.4%]</td></tr>
-      <tr><td>Nemotron-3 Nano:4B</td><td>0/48 (0.0%)</td><td>[0.0%, 7.4%]</td></tr>
-    </table>
+      <table>
+        <tr><th>Model</th><th>Success rate</th></tr>
+        <tr><td>Qwen3:235B</td><td align="right">12.5%</td></tr>
+        <tr><td>Llama3.1:70B</td><td align="right">0.0%</td></tr>
+        <tr><td>Llama3.2:3B</td><td align="right">0.0%</td></tr>
+        <tr><td>Mistral:7B</td><td align="right">0.0%</td></tr>
+        <tr><td>Nemotron-3 Nano:4B</td><td align="right">0.0%</td></tr>
+      </table>
     </td>
   </tr>
 </table>
+
+*All rates are based on 48 problems. Success counts, in the model order shown: closed-source — 36, 30, 25, 18, 2; open-source — 6, 0, 0, 0, 0. Wilson intervals are listed below Table 2.*
 
 ## Improving Translation Performance
 
@@ -69,8 +69,6 @@ Each model was given 54 reference examples pairing natural-language problems wit
 
 ### Table 2. Zero-Shot vs. Few-Shot Performance
 
-Each result shows **successes/48 (success rate)**, followed by its **95% Wilson confidence interval**. Changes are expressed in **percentage points (pp)**.
-
 <table>
   <tr>
     <th>Closed-source models</th>
@@ -78,33 +76,54 @@ Each result shows **successes/48 (success rate)**, followed by its **95% Wilson 
   </tr>
   <tr>
     <td valign="top">
-    <table>
-      <tr><th>Model</th><th>Zero-shot</th><th>Few-shot</th><th>Change (pp)</th></tr>
-      <tr><td>GPT-5.4</td><td>36/48 (75.0%)<br><sub>[61.2%, 85.1%]</sub></td><td>38/48 (79.2%)<br><sub>[65.7%, 88.3%]</sub></td><td>+4.2</td></tr>
-      <tr><td>Gemini 3.1 Pro</td><td>30/48 (62.5%)<br><sub>[48.4%, 74.8%]</sub></td><td>40/48 (83.3%)<br><sub>[70.4%, 91.3%]</sub></td><td>+20.8</td></tr>
-      <tr><td>Grok 4.3</td><td>25/48 (52.1%)<br><sub>[38.3%, 65.5%]</sub></td><td>30/48 (62.5%)<br><sub>[48.4%, 74.8%]</sub></td><td>+10.4</td></tr>
-      <tr><td>Claude Sonnet 4.6</td><td>18/48 (37.5%)<br><sub>[25.2%, 51.6%]</sub></td><td>25/48 (52.1%)<br><sub>[38.3%, 65.5%]</sub></td><td>+14.6</td></tr>
-      <tr><td>GPT-4o mini</td><td>2/48 (4.2%)<br><sub>[1.2%, 14.0%]</sub></td><td>6/48 (12.5%)<br><sub>[5.9%, 24.7%]</sub></td><td>+8.3</td></tr>
-    </table>
+      <table>
+        <tr><th>Model</th><th>Zero-shot</th><th>Few-shot</th><th>Gain (pp)</th></tr>
+        <tr><td>GPT-5.4</td><td align="right">75.0%</td><td align="right">79.2%</td><td align="right">+4.2</td></tr>
+        <tr><td>Gemini 3.1 Pro</td><td align="right">62.5%</td><td align="right">83.3%</td><td align="right">+20.8</td></tr>
+        <tr><td>Grok 4.3</td><td align="right">52.1%</td><td align="right">62.5%</td><td align="right">+10.4</td></tr>
+        <tr><td>Claude Sonnet 4.6</td><td align="right">37.5%</td><td align="right">52.1%</td><td align="right">+14.6</td></tr>
+        <tr><td>GPT-4o mini</td><td align="right">4.2%</td><td align="right">12.5%</td><td align="right">+8.3</td></tr>
+      </table>
     </td>
     <td valign="top">
-    <table>
-      <tr><th>Model</th><th>Zero-shot</th><th>Few-shot</th><th>Change (pp)</th></tr>
-      <tr><td>Qwen3:235B</td><td>6/48 (12.5%)<br><sub>[5.9%, 24.7%]</sub></td><td>22/48 (45.8%)<br><sub>[32.6%, 59.7%]</sub></td><td>+33.3</td></tr>
-      <tr><td>Llama3.1:70B</td><td>0/48 (0.0%)<br><sub>[0.0%, 7.4%]</sub></td><td>11/48 (22.9%)<br><sub>[13.3%, 36.5%]</sub></td><td>+22.9</td></tr>
-      <tr><td>Llama3.2:3B</td><td>0/48 (0.0%)<br><sub>[0.0%, 7.4%]</sub></td><td>0/48 (0.0%)<br><sub>[0.0%, 7.4%]</sub></td><td>+0.0</td></tr>
-      <tr><td>Mistral:7B</td><td>0/48 (0.0%)<br><sub>[0.0%, 7.4%]</sub></td><td>0/48 (0.0%)<br><sub>[0.0%, 7.4%]</sub></td><td>+0.0</td></tr>
-      <tr><td>Nemotron-3 Nano:4B</td><td>0/48 (0.0%)<br><sub>[0.0%, 7.4%]</sub></td><td>0/48 (0.0%)<br><sub>[0.0%, 7.4%]</sub></td><td>+0.0</td></tr>
-    </table>
+      <table>
+        <tr><th>Model</th><th>Zero-shot</th><th>Few-shot</th><th>Gain (pp)</th></tr>
+        <tr><td>Qwen3:235B</td><td align="right">12.5%</td><td align="right">45.8%</td><td align="right">+33.3</td></tr>
+        <tr><td>Llama3.1:70B</td><td align="right">0.0%</td><td align="right">22.9%</td><td align="right">+22.9</td></tr>
+        <tr><td>Llama3.2:3B</td><td align="right">0.0%</td><td align="right">0.0%</td><td align="right">0.0</td></tr>
+        <tr><td>Mistral:7B</td><td align="right">0.0%</td><td align="right">0.0%</td><td align="right">0.0</td></tr>
+        <tr><td>Nemotron-3 Nano:4B</td><td align="right">0.0%</td><td align="right">0.0%</td><td align="right">0.0</td></tr>
+      </table>
     </td>
   </tr>
 </table>
 
-Wilson intervals describe uncertainty around each individual success rate; they are not confidence intervals for the improvement. Because the 48 problems were manually curated, these intervals should be interpreted under a binomial model rather than as evidence that the benchmark represents all geometry problems. They also do not measure variation across repeated model generations.
+*All rates are based on 48 problems. Gains are percentage points (pp), calculated before rounding. Few-shot success counts, in the model order shown: closed-source — 38, 40, 30, 25, 6; open-source — 22, 11, 0, 0, 0.*
+
+<details>
+<summary><strong>95% Wilson confidence intervals</strong></summary>
+
+<table>
+  <tr><th>Model</th><th>Zero-shot 95% CI</th><th>Few-shot 95% CI</th></tr>
+  <tr><td>GPT-5.4</td><td align="right">61.2–85.1%</td><td align="right">65.7–88.3%</td></tr>
+  <tr><td>Gemini 3.1 Pro</td><td align="right">48.4–74.8%</td><td align="right">70.4–91.3%</td></tr>
+  <tr><td>Grok 4.3</td><td align="right">38.3–65.5%</td><td align="right">48.4–74.8%</td></tr>
+  <tr><td>Claude Sonnet 4.6</td><td align="right">25.2–51.6%</td><td align="right">38.3–65.5%</td></tr>
+  <tr><td>GPT-4o mini</td><td align="right">1.2–14.0%</td><td align="right">5.9–24.7%</td></tr>
+  <tr><td>Qwen3:235B</td><td align="right">5.9–24.7%</td><td align="right">32.6–59.7%</td></tr>
+  <tr><td>Llama3.1:70B</td><td align="right">0.0–7.4%</td><td align="right">13.3–36.5%</td></tr>
+  <tr><td>Llama3.2:3B</td><td align="right">0.0–7.4%</td><td align="right">0.0–7.4%</td></tr>
+  <tr><td>Mistral:7B</td><td align="right">0.0–7.4%</td><td align="right">0.0–7.4%</td></tr>
+  <tr><td>Nemotron-3 Nano:4B</td><td align="right">0.0–7.4%</td><td align="right">0.0–7.4%</td></tr>
+</table>
+
+</details>
+
+Wilson intervals describe uncertainty around each success rate, not uncertainty in the improvement. Because the problems were manually curated, these binomial-model intervals do not establish representativeness of all geometry problems or measure variation across repeated model generations.
 
 ### Table 3. Paired McNemar Tests: Zero-Shot vs. Few-Shot
 
-We compare the two settings on the **same 48 problems** using **two-sided exact McNemar tests**. An **improvement** is a failure in zero-shot that becomes a success in few-shot; a **regression** is a success that becomes a failure. Syntax and logic errors are both treated as failures. Problems that succeed in both settings or fail in both settings do not contribute to the test's discordant counts.
+We compare the paired success/failure outcomes on the same 48 problems using **two-sided exact McNemar tests**. The values below are **unadjusted p-values**.
 
 <table>
   <tr>
@@ -113,33 +132,54 @@ We compare the two settings on the **same 48 problems** using **two-sided exact 
   </tr>
   <tr>
     <td valign="top">
-    <table>
-      <tr><th>Model</th><th>Improved</th><th>Regressed</th><th>Exact p</th><th>Holm-adjusted p</th></tr>
-      <tr><td>GPT-5.4</td><td>6</td><td>4</td><td>0.7539</td><td>1.0000</td></tr>
-      <tr><td>Gemini 3.1 Pro</td><td>15</td><td>5</td><td><strong>0.0414</strong></td><td>0.3311</td></tr>
-      <tr><td>Grok 4.3</td><td>10</td><td>5</td><td>0.3018</td><td>1.0000</td></tr>
-      <tr><td>Claude Sonnet 4.6</td><td>13</td><td>6</td><td>0.1671</td><td>1.0000</td></tr>
-      <tr><td>GPT-4o mini</td><td>4</td><td>0</td><td>0.1250</td><td>0.8750</td></tr>
-    </table>
+      <table>
+        <tr><th>Model</th><th>Exact p-value</th></tr>
+        <tr><td>GPT-5.4</td><td align="right">0.7539</td></tr>
+        <tr><td>Gemini 3.1 Pro</td><td align="right"><strong>0.0414</strong></td></tr>
+        <tr><td>Grok 4.3</td><td align="right">0.3018</td></tr>
+        <tr><td>Claude Sonnet 4.6</td><td align="right">0.1671</td></tr>
+        <tr><td>GPT-4o mini</td><td align="right">0.1250</td></tr>
+      </table>
     </td>
     <td valign="top">
-    <table>
-      <tr><th>Model</th><th>Improved</th><th>Regressed</th><th>Exact p</th><th>Holm-adjusted p</th></tr>
-      <tr><td>Qwen3:235B</td><td>16</td><td>0</td><td><strong>0.0000305</strong></td><td><strong>0.000305</strong></td></tr>
-      <tr><td>Llama3.1:70B</td><td>11</td><td>0</td><td><strong>0.000977</strong></td><td><strong>0.008789</strong></td></tr>
-      <tr><td>Llama3.2:3B</td><td>0</td><td>0</td><td>1.0000</td><td>1.0000</td></tr>
-      <tr><td>Mistral:7B</td><td>0</td><td>0</td><td>1.0000</td><td>1.0000</td></tr>
-      <tr><td>Nemotron-3 Nano:4B</td><td>0</td><td>0</td><td>1.0000</td><td>1.0000</td></tr>
-    </table>
+      <table>
+        <tr><th>Model</th><th>Exact p-value</th></tr>
+        <tr><td>Qwen3:235B</td><td align="right"><strong>0.0000305</strong></td></tr>
+        <tr><td>Llama3.1:70B</td><td align="right"><strong>0.000977</strong></td></tr>
+        <tr><td>Llama3.2:3B</td><td align="right">1.0000</td></tr>
+        <tr><td>Mistral:7B</td><td align="right">1.0000</td></tr>
+        <tr><td>Nemotron-3 Nano:4B</td><td align="right">1.0000</td></tr>
+      </table>
     </td>
   </tr>
 </table>
 
-**Bold p-values are below 0.05.** The raw exact p-values indicate significant improvements for Gemini 3.1 Pro, Llama3.1:70B, and Qwen3:235B at the unadjusted 0.05 level. After **Holm correction across all ten model comparisons**, only Llama3.1:70B and Qwen3:235B remain significant. Non-significant results do not establish that the prompting strategies are equivalent. For models with no changed success/failure outcomes, the exact p-value is reported as 1.0000.
+**Bold values meet the p < 0.05 threshold.** At this unadjusted threshold, the tests provide statistically significant evidence of improved success rates for **Gemini 3.1 Pro, Llama3.1:70B, and Qwen3:235B**. The other comparisons do not provide sufficient evidence of a difference; this does not establish that the settings are equivalent.
+
+<details>
+<summary><strong>Paired outcome counts used in the tests</strong></summary>
+
+<table>
+  <tr><th>Model</th><th>Improved</th><th>Regressed</th></tr>
+  <tr><td>GPT-5.4</td><td align="right">6</td><td align="right">4</td></tr>
+  <tr><td>Gemini 3.1 Pro</td><td align="right">15</td><td align="right">5</td></tr>
+  <tr><td>Grok 4.3</td><td align="right">10</td><td align="right">5</td></tr>
+  <tr><td>Claude Sonnet 4.6</td><td align="right">13</td><td align="right">6</td></tr>
+  <tr><td>GPT-4o mini</td><td align="right">4</td><td align="right">0</td></tr>
+  <tr><td>Qwen3:235B</td><td align="right">16</td><td align="right">0</td></tr>
+  <tr><td>Llama3.1:70B</td><td align="right">11</td><td align="right">0</td></tr>
+  <tr><td>Llama3.2:3B</td><td align="right">0</td><td align="right">0</td></tr>
+  <tr><td>Mistral:7B</td><td align="right">0</td><td align="right">0</td></tr>
+  <tr><td>Nemotron-3 Nano:4B</td><td align="right">0</td><td align="right">0</td></tr>
+</table>
+
+</details>
+
+*Improved: failure in zero-shot → success in few-shot. Regressed: success in zero-shot → failure in few-shot. Syntax and logic errors both count as failures. Outcomes that remain successful or remain failures do not contribute to the test's changed-pair counts. When no outcomes change, p is reported as 1.0000.*
 
 Improvements were most pronounced on syntax-related failures, suggesting that unfamiliarity with AlphaGeometry's DSL contributes to translation errors, especially for open-source models. A substantial gap to the strongest closed-source models nonetheless remained.
 
-![Few-shot and Zero-shot Performance Comparison](README/graph_model_performance.png)
+![Few-shot and Zero-shot Performance Comparison](readme-imgs/graph_model_performance.png)
 
 ### Human-Guided Hints
 
@@ -166,7 +206,7 @@ Smaller open-source models were fine-tuned on **HAGeo-409**, a human-verified se
 ## Takeaways
 
 - A substantial performance gap persists between frontier closed-source models and open-source alternatives on geometry auto-formalization.
-- Few-shot prompting increased observed success rates for seven of ten models; improvements for Llama3.1:70B and Qwen3:235B remained statistically significant after Holm correction.
+- Few-shot prompting increased observed success rates for seven of ten models; the exact McNemar tests identified significant improvements for Gemini 3.1 Pro, Llama3.1:70B, and Qwen3:235B at the unadjusted 0.05 threshold.
 - Human-guided hints are highly effective for near-correct translations but don't scale to large benchmark runs.
 - Fine-tuning helps with syntax but not with the deeper geometric reasoning needed for semantic correctness.
 - The syntax/logic error taxonomy is useful for diagnosing *why* a translation failed, not just whether it did.
