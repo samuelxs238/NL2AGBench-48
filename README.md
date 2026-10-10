@@ -1,6 +1,6 @@
 # NL2AGBench: Benchmarking LLM Auto-Formalization for AlphaGeometry
 
-![Translation gap between natural-language geometry problems and AlphaGeometry's formal DSL](README/graphic_translation_difficulty.png)
+![Translation gap between natural-language geometry problems and AlphaGeometry's formal DSL](readme_imgs/graphic_translation_difficulty.png)
 *Figure 1: The translation gap between natural-language geometry problems and AlphaGeometry's formal DSL. While AlphaGeometry has demonstrated strong theorem-proving capabilities, the manual formalization step remains a major barrier to usability and large-scale deployment.*
 
 ## Benchmark Construction
@@ -11,7 +11,7 @@ NL2AGBench is built from geometry problems originally formalized for AlphaGeomet
 - **Selection**: 48 representative problems were selected for translation diversity (circles, cyclic quadrilaterals, angle bisectors, orthocenters, circumcenters, midpoints, reflections, perpendicular constructions) and execution efficiency (excluding problems with excessive AlphaGeometry runtime).
 - **Format**: Every problem pairs a natural-language statement with a verified, executable AlphaGeometry translation.
 
-![Sample NL2AGBench problems](README/images_benchmark_samples.png)
+![Sample NL2AGBench problems](readme_imgs/images_benchmark_samples.png)
 *Figure 2: Sample NL2AGBench problems spanning a range of geometric concepts, selected for both diversity and runtime efficiency.*
 
 ## Evaluation Method
@@ -59,7 +59,7 @@ Each model was given 54 reference examples pairing natural-language problems wit
 
 Improvements were most pronounced on syntax-related failures, suggesting a meaningful share of translation errors stem from unfamiliarity with AlphaGeometry's DSL rather than a lack of geometric understanding — especially for open-source models. A substantial gap to the strongest closed-source models nonetheless remained.
 
-![Few-shot and Zero-shot Performance Comparison](README/graph_model_performance.png)
+![Few-shot and Zero-shot Performance Comparison](readme_imgs/graph_model_performance.png)
 
 ### Human-Guided Hints
 
